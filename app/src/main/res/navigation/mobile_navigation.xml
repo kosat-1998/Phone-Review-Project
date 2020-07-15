@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_all_brands"
+        android:name="com.example.phoneupdatemyanmar.ui.allbrands.AllBrandsFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_all_brands" >
+        <action
+            android:id="@+id/action_navigation_all_brands_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.phoneupdatemyanmar.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_logoListFragment"
+            app:destination="@id/logoListFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_youtubeFragment"
+            app:destination="@id/youtubeFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_self"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_compare"
+        android:name="com.example.phoneupdatemyanmar.ui.compare.CompareFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_compare" >
+        <action
+            android:id="@+id/action_navigation_compare_to_chartFragment"
+            app:destination="@id/chartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logoListFragment"
+        android:name="com.example.phoneupdatemyanmar.ui.logo_list.LogoListFragment"
+        android:label="fragment_logo_list"
+        tools:layout="@layout/fragment_logo_list" >
+        <action
+            android:id="@+id/action_logoListFragment_to_brandIDFragment"
+            app:destination="@id/brandIDFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/brandIDFragment"
+        android:name="com.example.phoneupdatemyanmar.ui.brand_id.BrandIDFragment"
+        android:label="fragment_brand_i_d"
+        tools:layout="@layout/fragment_brand_i_d" >
+        <argument
+            android:name="brandID"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_brandIDFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/youtubeFragment"
+        android:name="com.example.phoneupdatemyanmar.ui.youtube.YoutubeFragment"
+        android:label="fragment_youtube"
+        tools:layout="@layout/fragment_youtube" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.phoneupdatemyanmar.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="details"
+            app:argType="string[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.example.phoneupdatemyanmar.ui.chart.ChartFragment"
+        android:label="fragment_chart"
+        tools:layout="@layout/fragment_chart" />
+</navigation>

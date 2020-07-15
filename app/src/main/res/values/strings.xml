@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Phone UpDate Myanmar</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="all_brands">All</string>
+    <string name="compare">Compare</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="review">Review</string>
+    <string name="note">I can not guarantee that the information on this page is 100% correct</string>
+</resources>
