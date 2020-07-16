@@ -27,13 +27,10 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <androidx.appcompat.widget.SearchView
             android:id="@+id/action_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-
     </androidx.cardview.widget.CardView>
 
 
@@ -45,6 +42,7 @@
         android:scrollbarSize="10dp"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_view" />

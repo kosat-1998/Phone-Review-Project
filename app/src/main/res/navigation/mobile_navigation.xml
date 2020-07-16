@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_all_brands"
-        android:name="com.example.phoneupdatemyanmar.ui.allbrands.AllBrandsFragment"
+        android:name="com.sps.phoneupdatemyanmar.ui.allbrands.AllBrandsFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_all_brands" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.phoneupdatemyanmar.ui.dashboard.DashboardFragment"
+        android:name="com.sps.phoneupdatemyanmar.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
@@ -29,11 +29,17 @@
         <action
             android:id="@+id/action_navigation_dashboard_self"
             app:destination="@id/navigation_dashboard" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_settingFragment"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_compare"
-        android:name="com.example.phoneupdatemyanmar.ui.compare.CompareFragment"
+        android:name="com.sps.phoneupdatemyanmar.ui.compare.CompareFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_compare" >
         <action
@@ -42,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/logoListFragment"
-        android:name="com.example.phoneupdatemyanmar.ui.logo_list.LogoListFragment"
+        android:name="com.sps.phoneupdatemyanmar.ui.logo_list.LogoListFragment"
         android:label="fragment_logo_list"
         tools:layout="@layout/fragment_logo_list" >
         <action
@@ -51,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/brandIDFragment"
-        android:name="com.example.phoneupdatemyanmar.ui.brand_id.BrandIDFragment"
+        android:name="com.sps.phoneupdatemyanmar.ui.brand_id.BrandIDFragment"
         android:label="fragment_brand_i_d"
         tools:layout="@layout/fragment_brand_i_d" >
         <argument
@@ -64,12 +70,12 @@
     </fragment>
     <fragment
         android:id="@+id/youtubeFragment"
-        android:name="com.example.phoneupdatemyanmar.ui.youtube.YoutubeFragment"
+        android:name="com.sps.phoneupdatemyanmar.ui.youtube.YoutubeFragment"
         android:label="fragment_youtube"
         tools:layout="@layout/fragment_youtube" />
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.phoneupdatemyanmar.ui.detail.DetailFragment"
+        android:name="com.sps.phoneupdatemyanmar.ui.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
@@ -78,7 +84,17 @@
     </fragment>
     <fragment
         android:id="@+id/chartFragment"
-        android:name="com.example.phoneupdatemyanmar.ui.chart.ChartFragment"
+        android:name="com.sps.phoneupdatemyanmar.ui.chart.ChartFragment"
         android:label="fragment_chart"
         tools:layout="@layout/fragment_chart" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.sps.phoneupdatemyanmar.ui.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.sps.phoneupdatemyanmar.ui.save.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>

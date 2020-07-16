@@ -16,6 +16,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:visibility="visible"
+        android:layoutAnimation="@anim/layout_animation_down_to_upt"
         app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment"
         >
 
@@ -29,6 +30,7 @@
             app:menu="@menu/bottom_nav_menu"
             android:background="@drawable/my_backgruond_3"
             android:layout_gravity="center"
+            android:visibility="visible"
             />
 
     </androidx.cardview.widget.CardView>
