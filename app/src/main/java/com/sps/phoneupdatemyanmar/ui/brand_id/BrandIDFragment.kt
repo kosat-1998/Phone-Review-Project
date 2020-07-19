@@ -55,6 +55,9 @@ class BrandIDFragment : Fragment(),OneBrandIDAdapter.Clicklistener {
         oneBrandViewModel.oneBrand().observe(viewLifecycleOwner,
             Observer {
                 oneBrandIDAdapter.updateOne(it)
+                one_brand_progress_bar.visibility = View.GONE
+                recycler_one_brand.visibility = View.VISIBLE
+
             })
     }
 
@@ -88,7 +91,8 @@ class BrandIDFragment : Fragment(),OneBrandIDAdapter.Clicklistener {
             detailBrand.os,
             detailBrand.bname,
             detailBrand.image,
-            detailBrand.memory
+            detailBrand.memory,
+            detailBrand.review
         )
         val action = BrandIDFragmentDirections.actionBrandIDFragmentToDetailFragment(details)
         findNavController().navigate(action)

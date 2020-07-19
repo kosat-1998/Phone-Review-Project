@@ -11,27 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layoutAnimation="@anim/layout_animation_down_to_upt"
+        app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:visibility="visible"
-        android:layoutAnimation="@anim/layout_animation_down_to_upt"
-        app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/my_backgruond_3"
+            android:visibility="visible"
             app:itemIconTint="@drawable/navi_bottom_bar_item_selected"
             app:itemRippleColor="#00FF47"
             app:itemTextColor="#DF1FFF"
-            app:menu="@menu/bottom_nav_menu"
-            android:background="@drawable/my_backgruond_3"
-            android:layout_gravity="center"
-            android:visibility="visible"
-            />
+            app:menu="@menu/bottom_nav_menu" />
 
     </androidx.cardview.widget.CardView>
 

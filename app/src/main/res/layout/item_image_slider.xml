@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
     android:layout_gravity="center"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <FrameLayout
@@ -12,36 +12,59 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        >
 
-        <ImageView
-            android:id="@+id/image_slide"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/slider_profile"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
 
+            <ImageView
+                android:id="@+id/image_slide"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/loading"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom"
-            android:background="#95CC00EF"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/slide_name"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:maxLines="2"
-                android:text="@string/app_name"
-                android:textColor="#FFF9F9"
-                android:textStyle="italic" />
+                android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:cardBackgroundColor="@android:color/transparent">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_gravity="bottom"
+                    android:background="#95CC00EF"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/slide_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@string/app_name"
+                        android:textColor="#FFF9F9"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </FrameLayout>

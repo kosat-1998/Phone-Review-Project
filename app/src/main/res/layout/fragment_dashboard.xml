@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutAnimation="@anim/layout_animation_up_to_down"
-    tools:context=".ui.dashboard.DashboardFragment">
+    tools:context=".ui.dashboard.DashboardFragment"
+    android:orientation="vertical"
+    android:weightSum="2">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/imageSlider_cardview"
@@ -16,7 +18,15 @@
         app:layout_constraintBottom_toTopOf="@+id/mainGrid"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardBackgroundColor="@android:color/transparent"
+        android:layout_weight="1">
+
+        <ProgressBar
+            android:id="@+id/auto_slider_image_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_gravity="center" />
 
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/imageSlider"
@@ -29,7 +39,8 @@
             app:sliderAutoCycleEnabled="true"
             app:sliderIndicatorEnabled="false"
             app:sliderScrollTimeInSec="1"
-            app:sliderStartAutoCycle="true" />
+            app:sliderStartAutoCycle="true"
+            android:visibility="gone"/>
     </androidx.cardview.widget.CardView>
 
     <GridLayout
@@ -55,7 +66,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="5sp"
             android:weightSum="2">
 
             <androidx.cardview.widget.CardView
@@ -63,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#000"
+                app:cardBackgroundColor="@color/dash_board"
                 app:cardCornerRadius="10dp"
 
                 >
@@ -102,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#000"
+                app:cardBackgroundColor="@color/dash_board"
                 app:cardCornerRadius="10dp"
 
                 >
@@ -143,7 +154,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="5sp"
             android:weightSum="2">
 
             //row 2
@@ -153,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#000"
+                app:cardBackgroundColor="@color/dash_board"
                 app:cardCornerRadius="10dp">
 
                 <LinearLayout
@@ -162,7 +173,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:background="#000"
                     android:orientation="vertical">
 
                     <ImageView
@@ -192,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="#000"
+                app:cardBackgroundColor="@color/dash_board"
                 app:cardCornerRadius="10dp"
 
                 >
@@ -228,4 +238,4 @@
     </GridLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

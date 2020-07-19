@@ -38,10 +38,7 @@ class LogoListFragment : Fragment() , LogosListAdapter.ClickListener{
         logoViewModel = ViewModelProvider(this).get(LogoViewModel::class.java)
 
         observedView()
-
         logosListAdapter.setClickListenr(this)
-
-        loadBar()
         hideNavigationView()
     }
 
@@ -50,6 +47,8 @@ class LogoListFragment : Fragment() , LogosListAdapter.ClickListener{
         logoViewModel.brandList().observe(viewLifecycleOwner,
             Observer {
                 logosListAdapter.updateBrandsList(it)
+                progress_bar_brandlogo_load.visibility = View.GONE
+                recycler_logos_list.visibility = View.VISIBLE
             })
     }
 
@@ -60,24 +59,10 @@ class LogoListFragment : Fragment() , LogosListAdapter.ClickListener{
     }
 
     override fun onClick(brand: Brand) {
-        var id = brand.id
-
+        val id = brand.id
         val action = LogoListFragmentDirections.actionLogoListFragmentToBrandIDFragment(id)
         findNavController().navigate(action)
     }
-
-
-    // loadBar
-    private fun loadBar() {
-
-        Toast.makeText(context, logoViewModel.loading().value.toString(), Toast.LENGTH_LONG)
-            .show()
-        if (logoViewModel.loading().value == true) {
-            progress_bar_brandlogo_load.visibility = View.GONE
-            recycler_logos_list.visibility = View.VISIBLE
-        }
-    }
-
 
     private fun hideNavigationView() {
         val cardNavView = activity?.findViewById<View>(R.id.card_nav_view)
@@ -86,9 +71,5 @@ class LogoListFragment : Fragment() , LogosListAdapter.ClickListener{
             cardNavView.visibility = View.GONE
             navView.visibility = View.GONE
         }
-
     }
-
-
-
 }

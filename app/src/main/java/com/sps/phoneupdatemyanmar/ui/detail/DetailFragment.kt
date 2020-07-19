@@ -12,7 +12,9 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.sps.phoneupdatemyanmar.ui.dialog_fragment.ReviewDialogFragment
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_all_brands.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : Fragment() {
@@ -31,6 +33,8 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         fromOneBrandFragment()
         hideNavigationView()
@@ -85,6 +89,7 @@ class DetailFragment : Fragment() {
 
         detail_ram.text = "${data?.details?.get(13) ?: "Unknown"} GB RAM"
 
+        reviewDialogShow(data?.details?.get(14) ?: "Unknown")
 
     }
 
@@ -122,6 +127,18 @@ class DetailFragment : Fragment() {
             navView.visibility = View.GONE
         }
     }
+
+    fun reviewDialogShow(review : String){
+        review_dialog_show.setOnClickListener {
+            val aboutFragment = ReviewDialogFragment()
+            var args = Bundle()
+            args.putString("Review", review)
+            aboutFragment.arguments = args
+            aboutFragment.show(requireActivity().supportFragmentManager, "Review")
+        }
+    }
+
+
 
 
 }

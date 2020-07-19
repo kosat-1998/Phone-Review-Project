@@ -9,15 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.sps.phoneupdatemyanmar.R
 import com.sps.phoneupdatemyanmar.adapter.AutoSliderAdapter
 import com.sps.phoneupdatemyanmar.viewmodel.AllBrandsViewModel
 import com.smarteist.autoimageslider.SliderAnimations
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.fragment_all_brands.view.*
+import com.sps.phoneupdatemyanmar.model_all_brands.Specificate
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import java.util.*
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(), AutoSliderAdapter.ImageSetOnClickListener {
 
     private lateinit var autoSliderAdapter: AutoSliderAdapter
     private lateinit var allBrandsViewModel: AllBrandsViewModel
@@ -27,16 +28,7 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        if (root.card_nav_view != null && root.card_view != null) {
-            root.card_nav_view.visibility = View.VISIBLE
-            root.card_view.visibility = View.VISIBLE
-            Toast.makeText(context, "view back", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(context, "view gone", Toast.LENGTH_LONG).show()
-        }
-
         return root
     }
 
@@ -50,7 +42,6 @@ class DashboardFragment : Fragment() {
         toSetting()
         toFavorite()
 
-
     }
 
     override fun onResume() {
@@ -63,14 +54,20 @@ class DashboardFragment : Fragment() {
 
         allBrandsViewModel.allBrands().observe(viewLifecycleOwner,
             Observer {
-                autoSliderAdapter = AutoSliderAdapter(it)
+                val rand = Random()
+                it.shuffle(rand)
+                autoSliderAdapter = AutoSliderAdapter(it, context)
+                imageSlider.visibility = View.VISIBLE
+                auto_slider_image_progress_bar.visibility = View.GONE
                 imageSlider?.apply {
                     setSliderAdapter(autoSliderAdapter)
                     startAutoCycle()
-                    setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
+                    setSliderTransformAnimation(SliderAnimations.CUBEINDEPTHTRANSFORMATION)
                     setIndicatorEnabled(true)
                     scrollTimeInSec = 3
                 }
+                autoSliderAdapter.setImageClickListener(this)
+
             })
     }
 
@@ -108,6 +105,29 @@ class DashboardFragment : Fragment() {
             view?.findNavController()
                 ?.navigate(R.id.action_navigation_dashboard_to_favoriteFragment)
         }
+    }
+
+    override fun onclick(specificate: Specificate) {
+        val details: Array<String> = arrayOf(
+            specificate.category.name,
+            specificate.battery,
+            specificate.capacity,
+            specificate.cpu,
+            specificate.display,
+            specificate.features,
+            specificate.date,
+            specificate.price,
+            specificate.selfie_camera,
+            specificate.main_camera,
+            specificate.os,
+            specificate.category.brand.bname,
+            specificate.image,
+            specificate.memory,
+            specificate.review
+        )
+        val action = DashboardFragmentDirections.actionNavigationDashboardToDetailFragment(details)
+        findNavController().navigate(action)
+        Toast.makeText(context, "navigate", Toast.LENGTH_SHORT).show()
     }
 
 }

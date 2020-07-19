@@ -19,7 +19,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layoutAnimation="@anim/layout_animation_left_to_right"
-        android:padding="10dp" />
+        android:layoutAnimation="@anim/layout_animation_right_to_left"
+        android:padding="10dp"
+        android:visibility="gone"/>
 
 </FrameLayout>

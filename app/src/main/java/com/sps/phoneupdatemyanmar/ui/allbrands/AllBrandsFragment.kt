@@ -1,6 +1,9 @@
 package com.sps.phoneupdatemyanmar.ui.allbrands
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +20,12 @@ import com.sps.phoneupdatemyanmar.adapter.AllBrandsAdapter
 import com.sps.phoneupdatemyanmar.model_all_brands.Specificate
 import com.sps.phoneupdatemyanmar.viewmodel.AllBrandsViewModel
 import kotlinx.android.synthetic.main.fragment_all_brands.*
+import kotlinx.android.synthetic.main.item_all_brands.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
-class AllBrandsFragment : Fragment(),AllBrandsAdapter.ClickListener {
+class AllBrandsFragment : Fragment(), AllBrandsAdapter.ClickListener,
+    AllBrandsAdapter.FavoriteClikListener {
 
     private lateinit var allBrandsViewModel: AllBrandsViewModel
     private lateinit var allBrandsAdapter: AllBrandsAdapter
@@ -33,7 +40,6 @@ class AllBrandsFragment : Fragment(),AllBrandsAdapter.ClickListener {
         return root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -41,13 +47,14 @@ class AllBrandsFragment : Fragment(),AllBrandsAdapter.ClickListener {
         allBrandsAdapter = AllBrandsAdapter(context = parentFragment?.context)
         recycler_all_brands.apply {
             adapter = allBrandsAdapter
-//            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         }
+        hideNavigationView()
         observedView()
         searchView()
         floatingBottomShowOrHide()
-        loadBar()
+        //   loadBar()
         allBrandsAdapter.setClickListener(this)
+        allBrandsAdapter.setFavoriteClickListener(this)
     }
 
     // view show or hide
@@ -56,19 +63,10 @@ class AllBrandsFragment : Fragment(),AllBrandsAdapter.ClickListener {
         recycler_all_brands.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val cardNavView = activity?.findViewById<View>(R.id.card_nav_view)
-                val navView = activity?.findViewById<View>(R.id.nav_view)
                 if (dy > 0) {
                     if (floating_button != null) {
-
                         floating_button.hide()
-                        card_view.visibility = View.GONE
-
-                    }
-                    if (cardNavView != null && navView != null) {
-                        cardNavView.visibility = View.GONE
-                        navView.visibility = View.GONE
-
+                        // card_view.visibility = View.GONE
                     }
 
                 } else if (dy < 0) {
@@ -76,10 +74,6 @@ class AllBrandsFragment : Fragment(),AllBrandsAdapter.ClickListener {
                         floating_button.show()
                     }
                     card_view.visibility = View.VISIBLE
-                    if (cardNavView != null && navView != null) {
-                        cardNavView.visibility = View.VISIBLE
-                        navView.visibility = View.VISIBLE
-                    }
                 }
             }
         })
@@ -111,12 +105,15 @@ class AllBrandsFragment : Fragment(),AllBrandsAdapter.ClickListener {
         }
         )
     }
-
     private fun observedView() {
+        val random = Random()
         allBrandsViewModel = ViewModelProvider(this).get(AllBrandsViewModel::class.java)
 
         allBrandsViewModel.allBrands().observe(viewLifecycleOwner,
             Observer {
+                progress_bar_all.visibility = View.GONE
+                recycler_all_brands.visibility = View.VISIBLE
+                it.shuffle(random)
                 allBrandsAdapter.update(it)
             }
         )
@@ -128,23 +125,9 @@ class AllBrandsFragment : Fragment(),AllBrandsAdapter.ClickListener {
         allBrandsViewModel.loadAllBrands(context)
     }
 
-    private fun loadBar() {
-
-        allBrandsAdapter.notifyDataSetChanged()
-        Toast.makeText(
-            context,
-            allBrandsAdapter.allSpec.size.toString(),
-            Toast.LENGTH_LONG
-        ).show()
-        if (allBrandsAdapter.allSpec.size > 0) {
-            progress_bar_allbrands_load.visibility = View.GONE
-            progress_bar_allbrands_load.visibility = View.VISIBLE
-        }
-    }
-
     override fun onCLick(all: Specificate) {
 
-        val details : Array<String> = arrayOf(
+        val details: Array<String> = arrayOf(
             all.category.name,
             all.battery,
             all.capacity,
@@ -158,12 +141,49 @@ class AllBrandsFragment : Fragment(),AllBrandsAdapter.ClickListener {
             all.os,
             all.category.brand.bname,
             all.image,
-            all.memory
+            all.memory,
+            all.review
         )
         val action = AllBrandsFragmentDirections.actionNavigationAllBrandsToDetailFragment(details)
         findNavController().navigate(action)
     }
 
+    private fun hideNavigationView() {
+        val cardNavView = activity?.findViewById<View>(R.id.card_nav_view)
+        val navView = activity?.findViewById<View>(R.id.nav_view)
+        if (cardNavView != null && navView != null) {
+            cardNavView.visibility = View.GONE
+            navView.visibility = View.GONE
+        }
+    }
+
+    override fun onFavoriteClick(specificate: Specificate, view: View) {
+
+        val sharedPrefFile = "TEST_SHARED_PREFERENCE"
+        val sharePreference: SharedPreferences = requireContext().getSharedPreferences(
+            sharedPrefFile,
+            Context.MODE_PRIVATE
+        )
+
+        val favoriteAction: SharedPreferences.Editor = sharePreference.edit()
+
+        val check = sharePreference.getString(specificate.category.name, "0")
+
+        if (check == specificate.category.id.toString()) {
+            favoriteAction.remove(specificate.category.name)
+            favoriteAction.apply()
+            favoriteAction.commit()
+            Toast.makeText(context, "unfavorite", Toast.LENGTH_SHORT).show()
+            view.favorite_action_button.setImageResource(R.drawable.tounfavorite)
+
+        } else {
+            favoriteAction.putString(specificate.category.name, "${specificate.category.id}")
+            favoriteAction.apply()
+            favoriteAction.commit()
+            Toast.makeText(context, "favorite", Toast.LENGTH_SHORT).show()
+            view.favorite_action_button.setImageResource(R.drawable.tofavorite)
+        }
+    }
 
 
 }

@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +13,6 @@ import com.sps.phoneupdatemyanmar.R
 import com.sps.phoneupdatemyanmar.adapter.YoutubeAdapter
 import com.sps.phoneupdatemyanmar.viewmodel.AllBrandsViewModel
 import kotlinx.android.synthetic.main.fragment_youtube.*
-import kotlinx.android.synthetic.main.item_youtube.*
 
 class YoutubeFragment : Fragment() {
 
@@ -32,21 +30,23 @@ class YoutubeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        youtubeAdapter = YoutubeAdapter()
+        youtubeAdapter = YoutubeAdapter(context = context)
         youtube_recycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = youtubeAdapter
         }
         observedView()
         hideNavigationView()
-
+        serachView()
     }
+
     private fun observedView() {
         allBrandsViewModel = ViewModelProvider(this).get(AllBrandsViewModel::class.java)
 
         allBrandsViewModel.allBrands().observe(viewLifecycleOwner,
             Observer {
                 youtubeAdapter.update(it)
+                progressBar()
             }
         )
     }
@@ -56,6 +56,7 @@ class YoutubeFragment : Fragment() {
         youtubeAdapter.notifyDataSetChanged()
         allBrandsViewModel.loadAllBrands(context)
     }
+
     private fun hideNavigationView() {
         val cardNavView = activity?.findViewById<View>(R.id.card_nav_view)
         val navView = activity?.findViewById<View>(R.id.nav_view)
@@ -65,15 +66,25 @@ class YoutubeFragment : Fragment() {
         }
     }
 
-    fun oncreate(){
-        youtube_web.webViewClient = object : WebViewClient(){
+    private fun progressBar() {
+        youtube_progress_bar.visibility = View.GONE
+        youtube_recycler.visibility = View.VISIBLE
+        youtube_search_card_view.visibility = View.VISIBLE
+    }
 
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-                progress_bar_youtube.visibility = View.GONE
+    private fun serachView() {
+        youtube_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                return false
             }
 
-        }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                youtubeAdapter.filter.filter(newText)
+                return false
+            }
+
+        })
     }
 
 }

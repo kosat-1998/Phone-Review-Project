@@ -38,17 +38,11 @@
         app:layout_constraintVertical_chainStyle="spread"
         >
 
-        <Button
-            android:id="@+id/background_change"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/my_background_4"
-            android:text="Background Change" />
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:id="@+id/about_page"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardCornerRadius="30sp"
         app:layout_constraintLeft_toLeftOf="parent"

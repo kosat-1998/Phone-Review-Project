@@ -3,6 +3,7 @@ package com.sps.phoneupdatemyanmar.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +21,21 @@ import kotlin.collections.ArrayList
 class AllBrandsAdapter(var allSpec: ArrayList<Specificate> = ArrayList(), var context: Context?) :
     RecyclerView.Adapter<AllBrandsAdapter.AllBrandsViewHolder>(), Filterable {
 
+    val sharedPrefFile = "TEST_SHARED_PREFERENCE"
+    val sharePreference: SharedPreferences = context!!.getSharedPreferences(
+        sharedPrefFile,
+        Context.MODE_PRIVATE
+    )
+
     private var clicklistener: ClickListener? = null
+    private var favoriteClikListener: FavoriteClikListener? = null
 
     fun setClickListener(clicklistener: ClickListener) {
         this.clicklistener = clicklistener
+    }
+
+    fun setFavoriteClickListener(favoriteclicklistener: FavoriteClikListener) {
+        this.favoriteClikListener = favoriteclicklistener
     }
 
     var filterList = ArrayList<Specificate>()
@@ -34,7 +46,6 @@ class AllBrandsAdapter(var allSpec: ArrayList<Specificate> = ArrayList(), var co
 
     inner class AllBrandsViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview),
         View.OnClickListener {
-
         private lateinit var allSpe: Specificate
 
         init {
@@ -43,7 +54,7 @@ class AllBrandsAdapter(var allSpec: ArrayList<Specificate> = ArrayList(), var co
             itemview.all_name.setOnClickListener(this)
 
             itemview.favorite_action_button.setOnClickListener {
-                Toast.makeText(context,"You Toast Favorite",Toast.LENGTH_LONG).show()
+                favoriteClikListener?.onFavoriteClick(allSpe, itemView)
             }
         }
 
@@ -52,6 +63,8 @@ class AllBrandsAdapter(var allSpec: ArrayList<Specificate> = ArrayList(), var co
             itemView.all_name.text = allSpe.category.name
             Picasso.get().load(allSpe.image).placeholder(R.drawable.loading)
                 .into(itemView.all_image)
+            // checking favorite
+            isFavoriteOrNot(allSpe, itemView)
         }
 
         override fun onClick(v: View?) {
@@ -84,12 +97,12 @@ class AllBrandsAdapter(var allSpec: ArrayList<Specificate> = ArrayList(), var co
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                var charSearch = constraint.toString()
+                val charSearch = constraint.toString()
 
                 if (charSearch.isEmpty()) {
                     filterList = allSpec
                 } else {
-                    var reslutList = ArrayList<Specificate>()
+                    val reslutList = ArrayList<Specificate>()
                     for (row in allSpec) {
                         if (row.category.name.toLowerCase(Locale.ROOT)
                                 .contains(charSearch.toLowerCase(Locale.ROOT))
@@ -119,16 +132,20 @@ class AllBrandsAdapter(var allSpec: ArrayList<Specificate> = ArrayList(), var co
         fun onCLick(all: Specificate)
     }
 
-    @SuppressLint("CommitPrefEdits")
-    fun toSaveFavorite(specificate: Specificate){
-         val sharedPrefFile = "TEST_SHARED_PREFERENCE"
-        val sharePreference : SharedPreferences = context!!.getSharedPreferences(
-            sharedPrefFile,
-            Context.MODE_PRIVATE
-        )
-        val favoriteAction: SharedPreferences.Editor = sharePreference.edit()
-        favoriteAction.putString(specificate.category.name,"${specificate.category.id}")
+    interface FavoriteClikListener {
+        fun onFavoriteClick(specificate: Specificate, view: View)
+    }
 
+    fun isFavoriteOrNot(specificate: Specificate, view: View) {
+        val result = sharePreference.getString(specificate.category.name, "0")
+        if (specificate.category.id == result!!.toInt()) {
+            view.favorite_action_button.setImageResource(R.drawable.tofavorite)
+            // Toast.makeText(context, "Red!", Toast.LENGTH_SHORT).show()
+
+        } else {
+            view.favorite_action_button.setImageResource(R.drawable.tounfavorite)
+            //Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+        }
 
     }
 
