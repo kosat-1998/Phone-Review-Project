@@ -57,6 +57,8 @@ class CompareFragment : Fragment() {
             Observer {
                 allSpecificate = it
                 mySpinner(allSpecificate)
+                compare_view.visibility = View.VISIBLE
+                progress_compare.visibility = View.GONE
             }
         )
 

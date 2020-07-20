@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:src="@drawable/ic_first_page"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_first_page" />
 
     <ScrollView
         android:id="@+id/specifications_view"
@@ -136,18 +136,46 @@
 
     </ScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/bnenchmark_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/bnenchmark_title_cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10sp"
+            android:layout_margin="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/bnenchmark_cardView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/b_title"
+                android:textSize="30sp"
+                android:gravity="center">
+
+
+            </TextView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bnenchmark_cardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bnenchmark_title_cardView">
 
             <com.github.mikephil.charting.charts.HorizontalBarChart
                 android:id="@+id/bnenchmark_graph"
@@ -158,7 +186,7 @@
 
         </androidx.cardview.widget.CardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
 </FrameLayout>

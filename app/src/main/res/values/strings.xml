@@ -14,4 +14,21 @@
     <string name="dialogMessage">Are You Sure?</string>
     <string name="no_favorite_data">No Favorite Data</string>
     <string name="review_ok">OK</string>
+    <string name="b_title">AnTuTu BenchMark</string>
+    <string name="data">
+        <a href="https://www.gsmarena.com/">https://www.gsmarena.com/</a>
+    </string>
+    <string name="icon">
+        <a href="https://icons8.com/">https://icons8.com</a>
+    </string>
+    <string name="ram">RAM</string>
+    <string name="rom">ROM</string>
+    <string name="main_camera">MAIN</string>
+    <string name="sefile_camera">SEFILE</string>
+    <string name="display">SCREEN</string>
+    <string name="feature">FEATURE</string>
+    <string name="release_date">Release Date</string>
+    <string name="icons_by_icons8">ICONS By ICONS8</string>
+    <string name="data_by_gsmarena">DATA BY GSMArena</string>
+    <string name="about_app">About App</string>
 </resources>

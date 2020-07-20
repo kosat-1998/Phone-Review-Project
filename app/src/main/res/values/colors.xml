@@ -3,9 +3,11 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="my_color">#601381</color>
+    <color name="my_color">#B60AFF</color>
     <color name="card_view_background">#CEC1EF</color>
     <color name="dash_board">#FFFFFF</color>
     <color name="all_brands_card_view">#C8D1C1</color>
+    <color name="detail_text_color">#4B00FF</color>
+    <color name="detail_color">#FFFFFF</color>
 
 </resources>

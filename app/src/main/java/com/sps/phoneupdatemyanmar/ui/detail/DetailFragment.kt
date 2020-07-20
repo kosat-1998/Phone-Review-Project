@@ -3,6 +3,7 @@ package com.sps.phoneupdatemyanmar.ui.detail
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.sps.phoneupdatemyanmar.ui.dialog_fragment.ReviewDialogFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_all_brands.*
+import kotlinx.android.synthetic.main.fragment_compare.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : Fragment() {
@@ -36,26 +38,18 @@ class DetailFragment : Fragment() {
 
 
 
+        //moving textView
+        detail_name.setSingleLine()
+        detail_name.ellipsize = TextUtils.TruncateAt.MARQUEE
+        detail_name.marqueeRepeatLimit = -1
+        detail_name.isSelected = true
+
         fromOneBrandFragment()
         hideNavigationView()
     }
 
     @SuppressLint("SetTextI18n")
     fun fromOneBrandFragment() {
-
-//        detailBrand.cname,        1
-//        detailBrand.battery,      2
-//        detailBrand.capacity,     3
-//        detailBrand.cpu,           4
-//        detailBrand.display,      5
-//        detailBrand.features,     6
-//        detailBrand.date,         7
-//        detailBrand.price,            8
-//        detailBrand.selfie_camera,            9
-//        detailBrand.main_camera,      10
-//        detailBrand.os,           11
-//        detailBrand.bname     12
-        //  detailBrand.image
 
         val data = arguments?.let { DetailFragmentArgs.fromBundle(it) }
         detail_name.text = data?.details?.get(0) ?: "unknown"
@@ -68,11 +62,11 @@ class DetailFragment : Fragment() {
         }
 
 
-        detail_capacity.text = "${data?.details?.get(2) ?: "Unknown"} GB ROM"
+        detail_rom.text = "${data?.details?.get(2) ?: "Unknown"} GB ROM"
         detail_cpu.text = data?.details?.get(3) ?: "Unknown"
         detail_display.text = data?.details?.get(4) ?: "Unknown"
         detail_feature.text = data?.details?.get(5) ?: "Unknown"
-        release_date.text = "Date : ${data?.details?.get(6) ?: "Unknown"}"
+        detail_release_date.text = "Date : ${data?.details?.get(6) ?: "Unknown"}"
         detail_price.text = "$ ${data?.details?.get(7) ?: "Unknown"}"
         detail_sefile_camera.text = "Font\n ${data?.details?.get(8) ?: "Unknown"}"
         detail_main_camera.text = "Main\n ${data?.details?.get(9) ?: "Unknown"}"
@@ -80,8 +74,10 @@ class DetailFragment : Fragment() {
 
         if (data?.details?.get(11) != "Apple") {
             os_image.setImageResource(R.drawable.android)
+            os_name.text = "Android"
         } else {
             os_image.setImageResource(R.drawable.ios)
+            os_name.text = "IOS"
         }
 
         Picasso.get().load(data?.details?.get(12)).placeholder(R.drawable.loading)
